@@ -35,11 +35,6 @@ def outbox(request):
         serializer = MessageSerializer(message_list, many = True)
     return Response(serializer.data)
 
-class inbox_Detail(generics.RetrieveAPIView):
-    queryset = Message.objects.all()
-    serializer_class = MessageSerializer
-    permission_classes = [IsAuthenticated]
-
 class outbox_Detail(generics.RetrieveDestroyAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
