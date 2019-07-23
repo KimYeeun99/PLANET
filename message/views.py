@@ -45,7 +45,7 @@ class MessageCustom(generics.ListCreateAPIView):
     serializer_class = MessageSerializer
     permission_classes = [IsAuthenticated]
 
-     def perform_create(self,serializer):
+    def perform_create(self,serializer):
         max_id = CustomerUser.objects.order_by('-id')[0].id
         for x in range(1,max_id+1):
             random_id = random.randint(1, max_id + 1)
