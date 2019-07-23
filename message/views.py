@@ -58,7 +58,7 @@ class MessageCustom(generics.ListCreateAPIView):
         while random_id == self.request.user.id:
             random_id = random.randint(1, max_id + 1)
             random_object = CustomerUser.objects.filter(id__gte=random_id)[0]
-        serializer.save(sender=self.request.user,recipient=random_object
+        serializer.save(sender=self.request.user,recipient=random_object)
         
 class MessageDetail(generics.RetrieveDestroyAPIView,generics.CreateAPIView):
     queryset = Message.objects.all()
