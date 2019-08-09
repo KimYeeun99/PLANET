@@ -50,7 +50,7 @@ class Message(models.Model):
     """
     A private message from user to user
     """
-    subject = models.CharField(_("Subject"), max_length=140)
+    subject = models.CharField(_("Subject"), max_length=140,null=True)
     body = models.TextField(_("Body"))
     sender = models.ForeignKey(AUTH_USER_MODEL, related_name='sent_messages', verbose_name=_("Sender"), null=True, on_delete='CASCADE')
     recipient = models.ForeignKey(AUTH_USER_MODEL, related_name='received_messages', null=True, blank=True, verbose_name=_("Recipient"), on_delete='CASCADE')
@@ -74,9 +74,6 @@ class Message(models.Model):
         if self.replied_at is not None:
             return True
         return False
-
-    def __str__(self):
-        return self.subject
 
     def get_absolute_url(self):
         return reverse('messages_detail', args=(self.id))

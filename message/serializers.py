@@ -4,4 +4,4 @@ from .models import Message
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
-        fields = ['id','subject','body','sender','recipient','sent_at','parent_msg']
+        fields = ['id','body','sender','recipient','sent_at','parent_msg']
