@@ -10,6 +10,8 @@ from rest_framework import status
 from rest_auth.registration.serializers import RegisterSerializer
 from rest_framework.authtoken.models import Token
 
+from django.shortcuts import get_object_or_404
+
 class UserView(generics.ListCreateAPIView):
     queryset = CustomerUser.objects.all()
     serializer_class = UserSerializer
@@ -17,6 +19,9 @@ class UserView(generics.ListCreateAPIView):
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomerUser.objects.all()
     serializer_class = UserSerializer
+
+    def get_object(self):
+        return get_object_or_404(CustomerUser,username=self.kwargs.get('slug'))
 
 class CustomLogin(LoginView):
     queryset = CustomerUser.objects.all()
