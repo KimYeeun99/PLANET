@@ -50,8 +50,8 @@ class MessageCustom(generics.ListCreateAPIView):
 
         while (1):
             random_id = random.randint(1, max_id + 1)
-            random_object = CustomerUser.objects.filter(id__gte=random_id)[0]
             if random_id != self.request.user.id:
+                random_object = CustomerUser.objects.filter(id__gte=random_id)[0]
                 break
 
         serializer.save(sender=self.request.user,recipient=random_object)
