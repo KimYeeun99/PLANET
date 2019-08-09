@@ -49,11 +49,13 @@ class MessageCustom(generics.ListCreateAPIView):
         max_id = CustomerUser.objects.order_by('-id')[0].id
 
         while (1):
-            random_id = random.randint(1, max_id + 1)
+            random_id = random.randint(1, max_id)
             if random_id != self.request.user.id:
                 random_object = CustomerUser.objects.filter(id__gte=random_id)[0]
                 break
-
+            else:
+                continue
+        
         serializer.save(sender=self.request.user,recipient=random_object)
         
 class MessageDetail(generics.RetrieveDestroyAPIView,generics.CreateAPIView):
