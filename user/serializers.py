@@ -85,4 +85,4 @@ class CustomRegisterSerializer(ModelSerializer,RegisterSerializer):
 class UserSerializer(ModelSerializer):
     class Meta:
         model = CustomerUser
-        fields = ['email','username','name','nickname','gender','birth_date']
+        fields = ['id','email','username','name','nickname','gender','birth_date']
