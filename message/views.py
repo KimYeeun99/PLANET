@@ -64,8 +64,14 @@ class MessageDetail(generics.RetrieveDestroyAPIView,generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        message = get_object_or_404(Message, pk=self.kwargs.get('pk'))
+        message.isRead = True
+        message.save()
         return self.queryset.filter(id=self.kwargs.get('pk'))
 
     def perform_create(self, serializer):
         message = get_object_or_404(Message, pk=self.kwargs.get('pk'))
         serializer.save(sender=self.request.user,recipient=message.sender,parent_msg=message)
+        self.request.user.message_count = self.request.user.message_count + 1
+        self.request.user.save()
+        
